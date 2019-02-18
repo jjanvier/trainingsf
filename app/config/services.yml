@@ -31,5 +31,12 @@ services:
 
     # add more services, or override services that need manual wiring
     PokerRandomHandGenerator:
-        public: true
+        public: false
         class: 'AppBundle\Poker\RandomHandGenerator'
+
+    PokerRandomHandPersister:
+        public: true
+        class: 'AppBundle\Poker\RandomHandPersister'
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@PokerRandomHandGenerator'
