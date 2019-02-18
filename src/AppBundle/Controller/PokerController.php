@@ -13,8 +13,13 @@ class PokerController extends Controller
      */
     public function randomHandAction(string $player) {
 
+        $em = $this->container->get('doctrine.orm.entity_manager');
         $generator = $this->container->get('PokerRandomHandGenerator');
+
         $hand = $generator($player);
+
+        $em->persist($hand);
+        $em->flush($hand);
 
         return new Response(
             "hand " . $hand->__toString() . " " .

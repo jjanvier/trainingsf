@@ -3,16 +3,42 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Poker\Card;
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="poker_hand")
+ */
 class PokerHand
 {
-    /** @var string */
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=100)
+     */
     private $player;
 
-    /** @var Card|array */
+    /**
+     * @var Card|array
+     *
+     * @ORM\Column(type="array")
+     */
     private $cards;
 
-    /** @var \DateTime */
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime")
+     */
     private $at;
 
     public function __construct(string $player, Card $card1, Card $card2, Card $card3, Card $card4, Card $card5)
