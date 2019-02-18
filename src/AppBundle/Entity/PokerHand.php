@@ -17,8 +17,11 @@ class PokerHand
 
     public function __construct(string $player, Card $card1, Card $card2, Card $card3, Card $card4, Card $card5)
     {
+        $cards = [$card1, $card2, $card3, $card4, $card5];
+        $this->assertNonIdenticalCards($cards);
+
         $this->player = $player;
-        $this->cards = [$card1, $card2, $card3, $card4, $card5];
+        $this->cards = $cards;
         $this->at = new \DateTime();
     }
 
@@ -39,5 +42,14 @@ class PokerHand
     public function __toString()
     {
         return implode("-", $this->cards);
+    }
+
+    private function assertNonIdenticalCards(array $cards): void
+    {
+        $uniqueCards = array_unique($cards, SORT_STRING);
+
+        if (5 !== count($uniqueCards)) {
+            throw new \Exception('Cheaters will not be tolerated');
+        }
     }
 }
